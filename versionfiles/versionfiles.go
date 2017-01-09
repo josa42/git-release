@@ -1,7 +1,6 @@
 package versionfiles
 
 import (
-	"fmt"
 	"io/ioutil"
 	"os"
 	"regexp"
@@ -29,7 +28,4 @@ func updateJSON(name string, version string) {
 	content = r.ReplaceAllString(content, "\"version\": \""+version+"\"")
 
 	ioutil.WriteFile(name, []byte(content), fileStat.Mode())
-
-	fmt.Println(name)
-	fmt.Print(content)
 }
