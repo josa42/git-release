@@ -31,15 +31,15 @@ var messages = map[int]string{
 	NotTagFound:       "Could not determ tag.",
 	NoCurrentTagFound: "Could not find current tag.",
 	NotImplemented:    "Not implemented yet.",
-	DirtyWorkspace:    "Dirty workspace. Use --force to include changes in the release commit.",
+	DirtyWorkspace:    "Dirty workspace. Use --dirty to include changed files in the release commit.",
 	CommitFailed:      "Commit failed.",
 	AlreadyTagged:     "Commit is already tagged. Use --force to allow multiple tags.",
 }
 
 // Exit :
-func Exit(code int, silent bool) {
+func Exit(code int) {
 
-	if !silent && messages[code] != "" {
+	if messages[code] != "" {
 		fmt.Println(messages[code])
 	}
 

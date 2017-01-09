@@ -14,30 +14,30 @@ import (
 func main() {
 	usage := stringutils.StripPrefix(`
 	  Usage:
-	    git-release [--major|--minor|--patch] [--stable|--beta|--rc] [--force]
-	    git-release --stable|--beta|--rc [--silent]
-	    git-release <version> [--force] [--silent]
+	    git-release [--major|--minor|--patch] [--stable|--beta|--rc] [--dirty] [--force]
+	    git-release --stable|--beta|--rc [--dirty] [--force]
+	    git-release <version> [--dirty] [--force]
 	    git-release --help
 	    git-release --version
 
 	  Options:
 	    -h --help     Show this screen.
 	    --version     Show version.
-	    --dry-run
-	    --force
+	    --dirty       Include changed files in release commit.
+	    --force       Force new commit even thought the latest commit is already tagged.
 	`)
 
 	arguments, _ := docopt.Parse(usage, nil, true, "Git Release 0.1.0", false)
 
-	silent := arguments["--silent"] == true
 	force := arguments["--force"] == true
+	dirty := arguments["--dirty"] == true
 
-	if git.IsDirty() && !force {
-		errors.Exit(errors.DirtyWorkspace, silent)
+	if git.IsDirty() && !dirty {
+		errors.Exit(errors.DirtyWorkspace)
 	}
 
 	if git.CurrentTag() != "" && !force {
-		errors.Exit(errors.AlreadyTagged, silent)
+		errors.Exit(errors.AlreadyTagged)
 	}
 
 	version, _ := arguments["<version>"].(string)
@@ -47,16 +47,16 @@ func main() {
 		if lastTag != "" {
 			version = utils.NextVersion(git.LastTag(), arguments)
 		} else {
-			errors.Exit(errors.NoCurrentTagFound, silent)
+			errors.Exit(errors.NoCurrentTagFound)
 		}
 	}
 
 	if version == "" {
-		errors.Exit(errors.NotTagFound, silent)
+		errors.Exit(errors.NotTagFound)
 	}
 
 	if git.TagExists(version) {
-		errors.Exit(errors.TagExists, silent)
+		errors.Exit(errors.TagExists)
 	}
 
 	versionfiles.UpdateAll(version)
@@ -64,7 +64,7 @@ func main() {
 	if git.IsDirty() {
 		err := git.CommitAll("Release " + version)
 		if err != nil {
-			errors.Exit(errors.CommitFailed, silent)
+			errors.Exit(errors.CommitFailed)
 		}
 
 		fmt.Println("Commit: \"Release " + version + "\"")
