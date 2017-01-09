@@ -60,6 +60,12 @@ func CommitAll(message string) error {
 	return Commit(message)
 }
 
+// CommitEmpty :
+func CommitEmpty(message string) error {
+	_, error := Exec("commit", "--message", message, "--allow-empty")
+	return error
+}
+
 // Tag :
 func Tag(version string) error {
 	_, error := Exec("tag", version)

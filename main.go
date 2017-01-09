@@ -14,17 +14,18 @@ import (
 func main() {
 	usage := stringutils.StripPrefix(`
 	  Usage:
-	    git-release [--major|--minor|--patch] [--stable|--beta|--rc] [--dirty] [--force]
-	    git-release --stable|--beta|--rc [--dirty] [--force]
-	    git-release <version> [--dirty] [--force]
+	    git-release [--major|--minor|--patch] [--stable|--beta|--rc] [--dirty] [--force] [--no-empty-commit]
+	    git-release --stable|--beta|--rc [--dirty] [--force] [--no-empty-commit]
+	    git-release <version> [--dirty] [--force] [--no-empty-commit]
 	    git-release --help
 	    git-release --version
 
 	  Options:
-	    -h --help     Show this screen.
-	    --version     Show version.
-	    --dirty       Include changed files in release commit.
-	    --force       Force new commit even thought the latest commit is already tagged.
+	    -h --help          Show this screen.
+	    --version          Show version.
+	    --dirty            Include changed files in release commit.
+	    --force            Force new commit even thought the latest commit is already tagged.
+      --no-empty-commit  Do not commit if nothing changed
 	`)
 
 	arguments, _ := docopt.Parse(usage, nil, true, "Git Release 0.1.0", false)
@@ -32,12 +33,13 @@ func main() {
 	force := arguments["--force"] == true
 	dirty := arguments["--dirty"] == true
 	push := arguments["--push"] == true
+	noEmptyCommit := arguments["--no-empty-commit"] == true
 
 	if git.IsDirty() && !dirty {
 		errors.Exit(errors.DirtyWorkspace)
 	}
 
-	if git.CurrentTag() != "" && !force {
+	if git.CurrentTag() != "" && noEmptyCommit && !force {
 		errors.Exit(errors.AlreadyTagged)
 	}
 
@@ -64,6 +66,13 @@ func main() {
 
 	if git.IsDirty() {
 		err := git.CommitAll("Release " + version)
+		if err != nil {
+			errors.Exit(errors.CommitFailed)
+		}
+
+		fmt.Println("Commit: \"Release " + version + "\"")
+	} else if !noEmptyCommit {
+		err := git.CommitEmpty("Release " + version)
 		if err != nil {
 			errors.Exit(errors.CommitFailed)
 		}
