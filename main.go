@@ -31,6 +31,7 @@ func main() {
 
 	force := arguments["--force"] == true
 	dirty := arguments["--dirty"] == true
+	push := arguments["--push"] == true
 
 	if git.IsDirty() && !dirty {
 		errors.Exit(errors.DirtyWorkspace)
@@ -72,4 +73,8 @@ func main() {
 
 	git.Tag(version)
 	fmt.Println("Tag:    \"" + version + "\"")
+
+	if push {
+		git.Push()
+	}
 }

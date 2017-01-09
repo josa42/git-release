@@ -90,10 +90,20 @@ func TagExists(tag string) bool {
 	return false
 }
 
-// // Tag :
-// func TagExists(tag string) error {
-//
-// }
+// Push :
+func Push() error {
+	_, err1 := Exec("push")
+	if err1 != nil {
+		return err1
+	}
+
+	_, err2 := Exec("push", "--tags")
+	if err2 != nil {
+		return err2
+	}
+
+	return nil
+}
 
 func gitCommand(args ...string) *exec.Cmd {
 
