@@ -8,6 +8,7 @@ import (
 	git "github.com/josa42/git-release/gitutils"
 	"github.com/josa42/git-release/stringutils"
 	"github.com/josa42/git-release/utils"
+	"github.com/josa42/git-release/versionfiles"
 )
 
 func main() {
@@ -35,11 +36,11 @@ func main() {
 		errors.Exit(errors.DirtyWorkspace, silent)
 	}
 
-	version, _ := arguments["<version>"].(string)
-
 	if git.CurrentTag() != "" && !force {
 		errors.Exit(errors.AlreadyTagged, silent)
 	}
+
+	version, _ := arguments["<version>"].(string)
 
 	if version == "" {
 		lastTag := git.LastTag()
@@ -57,6 +58,8 @@ func main() {
 	if git.TagExists(version) {
 		errors.Exit(errors.TagExists, silent)
 	}
+
+	versionfiles.UpdateAll(version)
 
 	if git.IsDirty() {
 		err := git.CommitAll("Release " + version)
