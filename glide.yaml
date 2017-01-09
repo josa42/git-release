@@ -1,0 +1,6 @@
+package: github.com/josa42/git-release
+import:
+- package: github.com/docopt/docopt-go
+  version: 0.6.2
+- package: github.com/blang/semver
+  version: v3.3.0
