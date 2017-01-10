@@ -4,3 +4,7 @@ import:
   version: 0.6.2
 - package: github.com/blang/semver
   version: v3.3.0
+- package: github.com/josa42/go-stringutils
+  version: 0.1.0
+- package: github.com/josa42/go-gitutils
+  version: 0.1.0

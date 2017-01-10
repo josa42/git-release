@@ -5,19 +5,11 @@ import (
 	"strings"
 )
 
-var defaultFlags = []string{}
-
-// var defaultFlags = []string{"--porcelain", "--no-color"}
-
 // Exec :
 func Exec(args ...string) (string, error) {
 
 	cmd := gitCommand(args...)
 	outputBytes, err := cmd.Output()
-
-	// if err != nil {
-	// 	fmt.Println(err)
-	// }
 
 	return strings.Trim(string(outputBytes), " \n"), err
 }
@@ -113,16 +105,10 @@ func Push() error {
 
 func gitCommand(args ...string) *exec.Cmd {
 
-	// fmt.Println("git", args)
-
 	cmd := exec.Command("git")
 
 	for _, arg := range args {
 		cmd.Args = append(cmd.Args, arg)
-	}
-
-	for _, globalArg := range defaultFlags {
-		cmd.Args = append(cmd.Args, globalArg)
 	}
 
 	return cmd
