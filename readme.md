@@ -2,7 +2,6 @@
 
 **Work in progress**
 
-
 ## Installation
 
 **Homebrew (macOS)**
@@ -36,3 +35,7 @@ Options:
   --do-not-push      Do not push commit and tags
   --no-empty-commit  Do not commit if nothing changed
 ```
+
+## License
+
+MIT (See [license.md](license.md))
