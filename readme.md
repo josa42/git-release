@@ -2,7 +2,21 @@
 
 **Work in progress**
 
---------------------------------------------------------------------------------
+
+## Installation
+
+**Homebrew (macOS)**
+
+```
+brew tap josa42/homebrew-git-tools
+brew install git-release
+```
+
+**Other**
+
+```
+go get github.com/josa42/git-release
+```
 
 ## Usage
 
