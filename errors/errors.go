@@ -26,6 +26,9 @@ const CommitFailed = 7
 // AlreadyTagged :
 const AlreadyTagged = 8
 
+// InvalidMassage :
+const InvalidMassage = 9
+
 var messages = map[int]string{
 	TagExists:         "Tag exists.",
 	NotTagFound:       "Could not determ tag.",
@@ -34,6 +37,7 @@ var messages = map[int]string{
 	DirtyWorkspace:    "Dirty workspace. Use --dirty to include changed files in the release commit.",
 	CommitFailed:      "Commit failed.",
 	AlreadyTagged:     "Commit is already tagged. Use --force to allow multiple tags.",
+	InvalidMassage:    "Message needs to include the {version} placeholder",
 }
 
 // Exit :

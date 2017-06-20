@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strings"
 
 	docopt "github.com/docopt/docopt-go"
 	"github.com/josa42/git-release/errors"
@@ -14,9 +15,9 @@ import (
 func main() {
 	usage := stringutils.TrimLeadingTabs(`
 		Usage:
-		  git-release [--major|--minor|--patch] [--stable|--beta|--rc] [--dirty] [--force] [--do-not-push] [--no-empty-commit]
-		  git-release --stable|--beta|--rc                             [--dirty] [--force] [--do-not-push] [--no-empty-commit]
-		  git-release <version>                                        [--dirty] [--force] [--do-not-push] [--no-empty-commit]
+		  git-release [--major|--minor|--patch] [--stable|--beta|--rc] [--dirty] [--force] [--do-not-push] [--no-empty-commit] [--message=<message>]
+		  git-release --stable|--beta|--rc                             [--dirty] [--force] [--do-not-push] [--no-empty-commit] [--message=<message>]
+		  git-release <version>                                        [--dirty] [--force] [--do-not-push] [--no-empty-commit] [--message=<message>]
 		  git-release --help
 		  git-release --version
 
@@ -35,6 +36,14 @@ func main() {
 	dirty := arguments["--dirty"] == true
 	push := arguments["--no-empty-commit"] != true
 	noEmptyCommit := arguments["--no-empty-commit"] == true
+	messageTpl := "🎉  Release {version}"
+	if arguments["--message"] != nil {
+		messageTpl = arguments["--message"].(string)
+	}
+
+	if !strings.Contains(messageTpl, "{version}") {
+		errors.Exit(errors.InvalidMassage)
+	}
 
 	if git.IsDirty() && !dirty {
 		errors.Exit(errors.DirtyWorkspace)
@@ -65,20 +74,22 @@ func main() {
 
 	versionfiles.UpdateAll(version)
 
+	message := strings.Replace(messageTpl, "{version}", version, 1)
+
 	if git.IsDirty() {
-		err := git.CommitAll("Release " + version)
+		err := git.CommitAll(message)
 		if err != nil {
 			errors.Exit(errors.CommitFailed)
 		}
 
-		fmt.Println("Commit: \"Release " + version + "\"")
+		fmt.Println("Commit: \"" + message + "\"")
 	} else if !noEmptyCommit {
-		err := git.CommitEmpty("Release " + version)
+		err := git.CommitEmpty(message)
 		if err != nil {
 			errors.Exit(errors.CommitFailed)
 		}
 
-		fmt.Println("Commit: \"Release " + version + "\"")
+		fmt.Println("Commit: \"" + message + "\"")
 	}
 
 	git.Tag(version)
