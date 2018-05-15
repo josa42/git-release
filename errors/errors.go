@@ -29,15 +29,23 @@ const AlreadyTagged = 8
 // InvalidMassage :
 const InvalidMassage = 9
 
+// PushFailed :
+const PushFailed = 10
+
+// UpdateVersionFailed :
+const UpdateVersionFailed = 11
+
 var messages = map[int]string{
-	TagExists:         "Tag exists.",
-	NotTagFound:       "Could not determ tag.",
-	NoCurrentTagFound: "Could not find current tag.",
-	NotImplemented:    "Not implemented yet.",
-	DirtyWorkspace:    "Dirty workspace. Use --dirty to include changed files in the release commit.",
-	CommitFailed:      "Commit failed.",
-	AlreadyTagged:     "Commit is already tagged. Use --force to allow multiple tags.",
-	InvalidMassage:    "Message needs to include the {version} placeholder",
+	TagExists:           "Tag exists.",
+	NotTagFound:         "Could not determ tag.",
+	NoCurrentTagFound:   "Could not find current tag.",
+	NotImplemented:      "Not implemented yet.",
+	DirtyWorkspace:      "Dirty workspace. Use --dirty to include changed files in the release commit.",
+	CommitFailed:        "Commit failed.",
+	PushFailed:          "Push failed.",
+	AlreadyTagged:       "Commit is already tagged. Use --force to allow multiple tags.",
+	InvalidMassage:      "Message needs to include the {version} placeholder",
+	UpdateVersionFailed: "Update version failed",
 }
 
 // Exit :

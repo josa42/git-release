@@ -3,14 +3,24 @@ package versionfiles
 import (
 	"io/ioutil"
 	"os"
+	"os/exec"
 	"regexp"
 )
 
 // UpdateAll :
-func UpdateAll(version string) {
+func UpdateAll(version string) error {
 
 	updateJSON("package.json", version)
 	updateJSON("bower.json", version)
+
+	if _, err := os.Stat("./.git-release/set-version.sh"); err == nil {
+		cmd := exec.Command("./.git-release/set-version.sh", version)
+		if err := cmd.Run(); err != nil {
+			return err
+		}
+
+	}
+	return nil
 }
 
 func updateJSON(name string, version string) {

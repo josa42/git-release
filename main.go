@@ -72,7 +72,9 @@ func main() {
 		errors.Exit(errors.TagExists)
 	}
 
-	versionfiles.UpdateAll(version)
+	if err := versionfiles.UpdateAll(version); err != nil {
+		errors.Exit(errors.UpdateVersionFailed)
+	}
 
 	message := strings.Replace(messageTpl, "{version}", version, 1)
 
@@ -96,6 +98,9 @@ func main() {
 	fmt.Println("Tag:    \"" + version + "\"")
 
 	if push {
-		git.Push()
+		err := git.Push()
+		if err != nil {
+			errors.Exit(errors.PushFailed)
+		}
 	}
 }
