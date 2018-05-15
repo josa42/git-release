@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"os/exec"
 	"strings"
 
 	docopt "github.com/docopt/docopt-go"
@@ -36,7 +37,13 @@ func main() {
 	dirty := arguments["--dirty"] == true
 	push := arguments["--no-empty-commit"] != true
 	noEmptyCommit := arguments["--no-empty-commit"] == true
-	messageTpl := "🎉  Release {version}"
+	messageTpl := "Release {version}"
+
+	out, err := exec.Command("git", "config", "git-release.message").Output()
+	if err == nil {
+		messageTpl = strings.TrimSpace(string(out))
+	}
+
 	if arguments["--message"] != nil {
 		messageTpl = arguments["--message"].(string)
 	}

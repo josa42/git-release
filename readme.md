@@ -35,6 +35,24 @@ Options:
   --do-not-push      Do not push commit and tags
   --no-empty-commit  Do not commit if nothing changed
 ```
+## Config
+
+- **Custom commit message"
+  `git config git-release.message "🎉  Release {version}"`
+
+## Update version files
+
+Versions in these files are updated automatically
+
+- `package.json`
+- `bower.json`
+
+For more complex version updates, you can provide a script. Which will be called with the new version as argument:
+
+```
+.git-release/set-version.sh
+```
+
 
 ## License
 
