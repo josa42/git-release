@@ -12,6 +12,7 @@ func UpdateAll(version string) error {
 
 	updateJSON("package.json", version)
 	updateJSON("bower.json", version)
+	updateJSON("composer.json", version)
 
 	if _, err := os.Stat("./.git-release/set-version.sh"); err == nil {
 		cmd := exec.Command("./.git-release/set-version.sh", version)

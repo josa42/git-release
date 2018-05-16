@@ -46,6 +46,7 @@ Versions in these files are updated automatically
 
 - `package.json`
 - `bower.json`
+- `composer.json`
 
 For more complex version updates, you can provide a script. Which will be called with the new version as argument:
 
