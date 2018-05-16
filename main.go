@@ -31,7 +31,7 @@ func main() {
 		  --no-empty-commit  Do not commit if nothing changed
   `)
 
-	arguments, _ := docopt.Parse(usage, nil, true, "Git Release 0.6.2", false)
+	arguments, _ := docopt.Parse(usage, nil, true, "Git Release 0.6.3", false)
 
 	force := arguments["--force"] == true
 	dirty := arguments["--dirty"] == true
