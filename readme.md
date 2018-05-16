@@ -37,7 +37,7 @@ Options:
 ```
 ## Config
 
-- **Custom commit message"
+- **Custom commit message**  
   `git config git-release.message "🎉  Release {version}"`
 
 ## Update version files
