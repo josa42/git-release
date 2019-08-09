@@ -1,0 +1,8 @@
+github.com/blang/semver v3.5.1+incompatible h1:cQNTCjp13qL8KC3Nbxr/y2Bqb63oX6wdnnjpJbkM4JQ=
+github.com/blang/semver v3.5.1+incompatible/go.mod h1:kRBLl5iJ+tD4TcOOxsy/0fnwebNt5EWlYSAyrTnjyyk=
+github.com/docopt/docopt-go v0.0.0-20180111231733-ee0de3bc6815 h1:bWDMxwH3px2JBh6AyO7hdCn/PkvCZXii8TGj7sbtEbQ=
+github.com/docopt/docopt-go v0.0.0-20180111231733-ee0de3bc6815/go.mod h1:WwZ+bS3ebgob9U8Nd0kOddGdZWjyMGR8Wziv+TBNwSE=
+github.com/josa42/go-gitutils v0.0.0-20170116135955-58ef480c7753 h1:6uhFjyyBYhykxUu3fQdnm3fJ7nh2Gmc2wFwlLB7T9NI=
+github.com/josa42/go-gitutils v0.0.0-20170116135955-58ef480c7753/go.mod h1:xXiFkUf/B2ekRJ8fv4BVjY/Tf/D2gERlHWDo+YkP7yo=
+github.com/josa42/go-stringutils v0.0.0-20170113134240-f91a1ffacf98 h1:S2GrByFGiMRPK/JLKQvf1se+byxfk+fmGdkVi9IOJX8=
+github.com/josa42/go-stringutils v0.0.0-20170113134240-f91a1ffacf98/go.mod h1:3bP4qKlpCFsamwnOCNsQ4fdfGIigLWZU4Xwf6Rw+MsY=
