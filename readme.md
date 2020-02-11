@@ -57,4 +57,4 @@ For more complex version updates, you can provide a script. Which will be called
 
 ## License
 
-MIT (See [license.md](license.md))
+MIT (See [license.md](LICENSE))
