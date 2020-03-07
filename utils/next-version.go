@@ -1,9 +1,15 @@
 package utils
 
-import "github.com/blang/semver"
+import (
+	"strings"
+
+	"github.com/blang/semver"
+)
 
 // NextVersion :
 func NextVersion(version string, options map[string]interface{}) string {
+
+	version = strings.TrimPrefix(version, "v")
 
 	next, err := semver.Parse(version)
 	if err != nil {
@@ -43,9 +49,6 @@ func NextVersion(version string, options map[string]interface{}) string {
 	}
 
 	panic("Invalid version step")
-
-	return ""
-	// panic("Invalid version step")
 }
 
 func resetPreVersion(version *semver.Version) {

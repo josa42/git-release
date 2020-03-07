@@ -60,11 +60,20 @@ func main() {
 		errors.Exit(errors.AlreadyTagged)
 	}
 
+	vPrefix := false // TODO add option
+
 	version, _ := arguments["<version>"].(string)
+	if strings.HasPrefix(version, "v") {
+		vPrefix = true
+	}
 
 	if version == "" {
 		lastTag := git.LastTag()
 		if lastTag != "" {
+			// TODO still respect config
+			if strings.HasPrefix(lastTag, "v") {
+				vPrefix = true
+			}
 			version = utils.NextVersion(git.LastTag(), arguments)
 		} else {
 			errors.Exit(errors.NoCurrentTagFound)
@@ -73,6 +82,10 @@ func main() {
 
 	if version == "" {
 		errors.Exit(errors.NotTagFound)
+	}
+
+	if vPrefix {
+		version = fmt.Sprintf("v%s", version)
 	}
 
 	if git.TagExists(version) {
