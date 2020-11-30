@@ -14,7 +14,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-const toolVersion = "v0.10.0"
+const toolVersion = "v0.10.1"
 
 var cmd = &cobra.Command{
 	Use: "git-release [<version>]",
