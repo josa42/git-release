@@ -14,19 +14,14 @@ import (
 	"github.com/spf13/cobra"
 )
 
-const toolVersion = "v0.10.1"
-
 var cmd = &cobra.Command{
-	Use: "git-release [<version>]",
+	Use:     "git-release [<version>]",
+	Version: "v0.10.1",
 	Example: strings.Join([]string{
 		"  git-release v1.0.0",
 		"  git-release --major",
 	}, "\n"),
-
 	Args: func(cmd *cobra.Command, args []string) error {
-		if v, _ := cmd.Flags().GetBool("version"); v {
-			return nil
-		}
 
 		if len(args) > 1 {
 			return fmt.Errorf("Too many arguments")
@@ -62,12 +57,6 @@ var cmd = &cobra.Command{
 	},
 
 	Run: func(cmd *cobra.Command, args []string) {
-
-		if version, _ := cmd.Flags().GetBool("version"); version {
-			fmt.Printf("git-release %s", toolVersion)
-			return
-		}
-
 		force, _ := cmd.Flags().GetBool("force")
 		dirty, _ := cmd.Flags().GetBool("dirty")
 		noPush, _ := cmd.Flags().GetBool("do-not-push")
