@@ -16,7 +16,7 @@ import (
 
 var cmd = &cobra.Command{
 	Use:     "git-release [<version>]",
-	Version: "v0.10.1",
+	Version: "v0.10.2",
 	Example: strings.Join([]string{
 		"  git-release v1.0.0",
 		"  git-release --major",
