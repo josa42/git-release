@@ -6,8 +6,17 @@ import (
 	"github.com/blang/semver"
 )
 
+type VersionOptions struct {
+	Major  bool
+	Minor  bool
+	Patch  bool
+	Stable bool
+	Rc     bool
+	Beta   bool
+}
+
 // NextVersion :
-func NextVersion(version string, options map[string]interface{}) string {
+func NextVersion(version string, options VersionOptions) string {
 
 	version = strings.TrimPrefix(version, "v")
 
@@ -18,29 +27,29 @@ func NextVersion(version string, options map[string]interface{}) string {
 
 	current, _ := semver.Parse(version)
 
-	if options["--major"] == true {
+	if options.Major {
 		next.Major++
 		next.Minor = 0
 		next.Patch = 0
 		resetPreVersion(&next)
 
-	} else if options["--minor"] == true {
+	} else if options.Minor {
 		next.Minor++
 		next.Patch = 0
 		resetPreVersion(&next)
 
-	} else if options["--patch"] == true {
+	} else if options.Patch {
 		next.Patch++
 		resetPreVersion(&next)
 	}
 
-	if options["--rc"] == true {
+	if options.Rc {
 		increasePreVersion("rc", &next)
 
-	} else if options["--beta"] == true {
+	} else if options.Beta {
 		increasePreVersion("beta", &next)
 
-	} else if options["--stable"] == true {
+	} else if options.Stable {
 		next.Pre = []semver.PRVersion{}
 	}
 
