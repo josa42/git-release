@@ -93,12 +93,6 @@ var cmd = &cobra.Command{
 			errors.Exit(errors.InvalidMassage)
 		}
 
-		fmt.Printf("force         = %v\n", force)
-		fmt.Printf("dirty         = %v\n", dirty)
-		fmt.Printf("noPush        = %v\n", noPush)
-		fmt.Printf("noEmptyCommit = %v\n", noEmptyCommit)
-		fmt.Printf("messageTpl    = %v\n", messageTpl)
-
 		if git.IsDirty() && !dirty {
 			errors.Exit(errors.DirtyWorkspace)
 		}
@@ -145,8 +139,6 @@ var cmd = &cobra.Command{
 		if vPrefix && !strings.HasPrefix(version, "v") {
 			version = fmt.Sprintf("v%s", version)
 		}
-
-		fmt.Printf("version = %v\n", version)
 
 		if git.TagExists(version) {
 			errors.Exit(errors.TagExists)
