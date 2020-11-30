@@ -131,7 +131,7 @@ var cmd = &cobra.Command{
 			errors.Exit(errors.NotTagFound)
 		}
 
-		if vPrefix {
+		if vPrefix && !strings.HasPrefix(version, "v") {
 			version = fmt.Sprintf("v%s", version)
 		}
 
